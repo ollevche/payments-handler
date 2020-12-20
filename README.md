@@ -1,5 +1,5 @@
 # API Design Example
-A simple handler which represents extendable API design in Go.
+A simple handler that represents extendable API design in Go.
 
 ## Requirements
 Go runtime with version 1.15 or higher.
@@ -24,7 +24,7 @@ go test ./http/rest
 ```
 
 ## Payments handler
-The API provides a single HTTP endpoint by the following path: `/payments/options`. It expectes to read `product_id` from query params. It's possible to import `insomnia.json` and send requests via [Insomnia tool](https://insomnia.rest/). Note: third-party dependencies are emulated.
+The API provides a single HTTP endpoint by the following path: `/payments/options`. It expects to read `product_id` from query params. It's possible to import `insomnia.json` and send requests via [the Insomnia tool](https://insomnia.rest/). Note: third-party dependencies are emulated.
 
 Example request-response via curl (with beatified JSON):
 ```
