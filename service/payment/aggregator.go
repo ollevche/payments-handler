@@ -12,9 +12,10 @@ type Option struct {
 	ButtonURL string   `json:"button_url"`
 }
 
-type AggregatorMock struct{}
+// Aggregator is a struct which emulates third-party payment providers.
+type Aggregator struct{}
 
-func (a AggregatorMock) GetPaymentOptionsByProduct(_ entity.Product) ([]Option, error) {
+func (a Aggregator) GetPaymentOptionsByProduct(_ entity.Product) ([]Option, error) {
 	return []Option{
 		{
 			Provider: Provider{

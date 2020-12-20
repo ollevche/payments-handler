@@ -2,9 +2,10 @@ package store
 
 import "payments-handler/entity"
 
-type Mock struct{}
+// Store is a struct which emulates persistent products store.
+type Store struct{}
 
-func (m Mock) GetProductByID(id string) (*entity.Product, error) {
+func (m Store) GetProductByID(id string) (*entity.Product, error) {
 	return &entity.Product{
 		ID: id,
 	}, nil

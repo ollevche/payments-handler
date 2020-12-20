@@ -34,8 +34,8 @@ func init() {
 
 func runServe(_ *cobra.Command, _ []string) error {
 	var paymentsModule = rest.PaymentsModule{
-		Store:      store.Mock{},
-		Aggregator: payment.AggregatorMock{},
+		Store:      store.Store{},
+		Aggregator: payment.Aggregator{},
 	}
 
 	var router = mux.NewRouter()

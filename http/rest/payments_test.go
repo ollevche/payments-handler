@@ -21,8 +21,8 @@ func TestGetOptionsByProductIDHandler(t *testing.T) {
 		)
 
 		h := PaymentsModule{
-			Store:      &store.Mock{},
-			Aggregator: &payment.AggregatorMock{},
+			Store:      &store.Store{},
+			Aggregator: &payment.Aggregator{},
 		}
 
 		h.GetOptionsByProductID(rec, req)
@@ -43,7 +43,7 @@ func TestGetOptionsByProductIDHandler(t *testing.T) {
 
 		h := PaymentsModule{
 			Store:      s,
-			Aggregator: &payment.AggregatorMock{},
+			Aggregator: &payment.Aggregator{},
 		}
 
 		h.GetOptionsByProductID(rec, req)
@@ -64,7 +64,7 @@ func TestGetOptionsByProductIDHandler(t *testing.T) {
 
 		h := PaymentsModule{
 			Store:      s,
-			Aggregator: &payment.AggregatorMock{},
+			Aggregator: &payment.Aggregator{},
 		}
 
 		h.GetOptionsByProductID(rec, req)
@@ -84,7 +84,7 @@ func TestGetOptionsByProductIDHandler(t *testing.T) {
 			Return(([]payment.Option)(nil), errors.New("failed to get options"))
 
 		h := PaymentsModule{
-			Store:      store.Mock{},
+			Store:      store.Store{},
 			Aggregator: a,
 		}
 
