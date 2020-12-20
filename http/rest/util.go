@@ -61,13 +61,19 @@ func (w *deferredResponseWriter) writeToOriginal() error {
 	return nil
 }
 
-func DeferredResponseMiddleware(next http.Handler) http.Handler {
+func ResponseTimeMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var startedAt = time.Now()
+
 		var dw = &deferredResponseWriter{
 			original: w,
 		}
 
 		next.ServeHTTP(dw, r)
+
+		var timeTook = time.Now().Sub(startedAt).Microseconds()
+
+		dw.Header().Set("X-Response-Time", strconv.FormatInt(timeTook, 10))
 
 		if err := dw.writeToOriginal(); err != nil {
 			log.Error().Err(err).Msg("Failed to write to original http.ResponseWriter from deferred")
@@ -75,23 +81,11 @@ func DeferredResponseMiddleware(next http.Handler) http.Handler {
 	})
 }
 
-func ResponseTimeMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		var startedAt = time.Now()
-
-		next.ServeHTTP(w, r)
-
-		var timeTook = time.Now().Sub(startedAt).Microseconds()
-
-		w.Header().Set("X-Response-Time", strconv.FormatInt(timeTook, 10))
-	})
-}
-
 func GetServerNameMiddleware(serverName string) mux.MiddlewareFunc {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			next.ServeHTTP(w, r)
 			w.Header().Set("X-Server-Name", serverName)
+			next.ServeHTTP(w, r)
 		})
 	}
 }

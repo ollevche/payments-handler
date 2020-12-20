@@ -42,7 +42,6 @@ func runServe(_ *cobra.Command, _ []string) error {
 
 	router.Use(
 		rest.HandlePanicMiddleware,
-		rest.DeferredResponseMiddleware,
 		rest.ResponseTimeMiddleware,
 		rest.GetServerNameMiddleware(hostname),
 	)
